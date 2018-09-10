@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.min2.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Angular -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>-->
+    <style type="text/css">
+        .list-group-item:hover {
+            color: #337ab7;
+            text-shadow: 0 0 1em #337ab7;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body ng-app="myapp">
+
+    <br />
+    <div class="container col-md-6">
+        <div ng-app="myapp" ng-controller="pizzaController" ng-init="generateFn()">
+            <h3 align="center">Pizza Selection By Typing the pizza item - Will display mosted ordered by ranking...</h3>
+            <label>Enter Tooping pizza Name.</label>
+            <input type="text" name="pizza" id="pizza" ng-model="pizza" ng-keyup="complete(pizza)" class="form-control" placeholder="Please Type Tooping pizza Name" />
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="pizzadata in filterpizza" ng-click="fillTextbox(pizzadata)">{{pizzadata}}</li>
+            </ul>
+
+        </div>
+    </div>
+    
+    <br />
+    
+    <div ng-controller="pizzaController">
+
+
+        
+        
+
+        <table>
+            <!--<tbody ng-repeat="t in pizzalist track by $index">-->
+                <tr ng-repeat="t in pizzalist track by $index">
+
+                    <!--<td>{{t.toppings}}</td>-->
+ 
+
+                    <td>
+                        <table style="richness:initial" cellpadding="1" cellspacing="1">
+
+                            <!--<tr>toppings..</tr>-->
+
+                            <!--<tbody ng-repeat="t2 in t.toppings track by $index">-->
+
+                                <tr ng-repeat="t2 in t.toppings track by $index">
+                                    <td>{{t2}}</td>
+                                </tr>
+               
+                            <!--</tbody>-->
+
+                        </table>
+                    </td>
+                </tr>
+
+            <!--</tbody>-->
+
+        </table>
+
+    </div>
+
+    <script>
+       
+        var app = angular.module("myapp", [])
+       
+        app.controller("pizzaController", function ($scope,$http) {
+
+            $scope.generateFn = function () {
+
+                $http.get('pizzas.json').then(function (response) {
+                    
+                    var arlist = new Array;
+
+                    arlist = response.data;
+                    $scope.pizzalist2 = JSON.parse( JSON.stringify(arlist));
+
+                    $scope.pizzalist = [ { toppings: ["pepperoni" ]},{toppings: ["feta cheese" ] },
+  {
+    toppings: [
+      "pepperoni"
+    ]
+  },
+  {
+    toppings: [
+      "bacon"
+    ]
+  },
+  {
+    toppings: [
+      "sausage",
+      "beef"
+    ]
+  },
+  {
+    toppings: [
+      "pepperoni"
+    ]
+  },
+  {
+    toppings: [
+      "beef"
+    ]
+  },
+  {
+    toppings: [
+      "jalapenos"
+    ]
+  },
+  {
+    toppings: [
+      "black olives"
+    ]
+  },
+  {
+    toppings: [
+      "mozzarella cheese"
+    ]
+  },
+  {
+    toppings: [
+      "bacon"
+    ]
+  },
+  {
+    toppings: [
+      "pepperoni"
+    ]
+  },
+  {
+    toppings: [
+      "mozzarella cheese"
+    ]
+  },
+  {
+    toppings: [
+      "bacon"
+    ]
+  },
+  {
+    toppings: [
+      "sausage",
+      "pepperoni"
+    ]
+  },
+  {
+    toppings: [
+      "mozzarella cheese"
+    ]
+  },
+  {
+    toppings: [
+      "mozzarella cheese",
+      "bacon",
+      "beef",
+      "onions",
+      "pineapple"
+    ]
+  },
+  {
+    toppings: [
+      "sausage"
+    ]
+  },
+  {
+      toppings: [
+        "pepperoni",
+        "artichokes"
+      ]
+  }
+                    ];
+
+
+                    $scope.complete = function (string) {
+
+                        var output = [];
+                        angular.forEach($scope.pizzalist, function (pizza) {
+                           // debugger
+                            console.log($scope.pizzalist);
+                            if (pizza.toppings.toLocaleString().indexOf(string.toLowerCase()) >= 0) {
+                               // console.log('inside pizza if ...');
+                                
+                                output.push(pizza.toppings);
+                                 
+                                output = JSON.parse(JSON.stringify(output));
+                                 
+                            }
+                        });
+                        $scope.filterpizza = output;
+                    }
+
+                    $scope.fillTextbox = function (string) {
+                        $scope.pizza = string;
+                        $scope.filterpizza = null;
+                    }
+
+                })
+
+            };
+
+
+        });
+
+
+    </script>
+</body>
+
+</html>
