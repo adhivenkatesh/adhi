@@ -1,14 +1,17 @@
-Hi,
+Hi Nikil/Team,
 
-This project done in ANGULARJS V-1.6 Done
+Greetings of the day!.
 
-to run the project we have to run the project we need a server like self hosting or anything (http-server)
+ 
+Once open the narayanEmp file ,please change the database/source direcotry in the
+web.config file
 
-just run toppingPizzas2.html 
+In my visual studio 2013 the sql is not working, i have created db in the 
+sql2012 server i have detached and attached inthe app_folder of this project
+kindly change the directory.
 
-Values are not taken from the pizzas.json ,because its taking long run for pick-up the datas from the file.
+DisplayEmployees.html is running file.
 
-instead i have inserted the datas in the inline file.
+Thank you,
+Adhi venaktesh
 
-Thanks
-Adhivenaktesh
